@@ -19,6 +19,8 @@ import { Typography } from "@mui/material";
 import {
   LoginContainer,
   LoginDivisor,
+  PasswordField,
+  PhoneField,
   StyledTab,
 } from "@/components/LoginUtils";
 export default function Login() {
@@ -28,7 +30,7 @@ export default function Login() {
     "logo-path": "src/assets/images/logo.png",
   };
   const [logoPath] = useState(pageProps["logo-path"]);
-  const [resolveMenu, setResolveMenu] = useState("1");
+  const [resolveMenu, setResolveMenu] = useState("2");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,6 +41,7 @@ export default function Login() {
       password: data.get("password"),
     });
   };
+
   return (
     <LoginContainer backgroundColor={pageProps["secondary-color"]}>
       <TabContext value={resolveMenu}>
@@ -117,7 +120,7 @@ export default function Login() {
                     control={
                       <Checkbox value="remember" color="primary" size="small" />
                     }
-                    label="Remember me"
+                    label="Lembrar-me"
                   />
                   <Button
                     type="submit"
@@ -159,8 +162,90 @@ export default function Login() {
               <SocialLoginButtons />
             </Container>
           </TabPanel>
-          <TabPanel value="2">
-            <div>register</div>
+          <TabPanel value="2" sx={{ py: "8px", px: "24px" }}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  sx={{
+                    mt: 1,
+                  }}
+                >
+                  <TextField
+                    size="small"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="full_name"
+                    label="Nome completo"
+                    name="full_name"
+                    autoComplete="full_name"
+                    autoFocus
+                  />
+                  <TextField
+                    size="small"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                  />
+                  <PhoneField />
+                  <PasswordField
+                    id="password"
+                    name="password"
+                    label="Senha"
+                    required
+                  />
+                  <PasswordField
+                    id="confirm-password"
+                    name="confirm-password"
+                    label="Confirme a senha"
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      my: 1.5,
+                      p: 1.5,
+                      backgroundColor: pageProps["primary-color"],
+                    }}
+                  >
+                    Cadastrar
+                  </Button>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  my: 2,
+                }}
+              >
+                <Box sx={{ flexGrow: 1, height: "1px", bgcolor: "grey.500" }} />
+                <Box sx={{ mx: 2 }}>
+                  <Typography variant="caption" sx={{ px: 1 }}>
+                    OU
+                  </Typography>
+                </Box>
+                <Box sx={{ flexGrow: 1, height: "1px", bgcolor: "grey.500" }} />
+              </Box>
+              <SocialLoginButtons />
+            </Container>
           </TabPanel>
         </LoginDivisor>
       </TabContext>
