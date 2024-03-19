@@ -30,7 +30,7 @@ export default function Login() {
     "logo-path": "src/assets/images/logo.png",
   };
   const [logoPath] = useState(pageProps["logo-path"]);
-  const [resolveMenu, setResolveMenu] = useState("2");
+  const [resolveMenu, setResolveMenu] = useState("1");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
