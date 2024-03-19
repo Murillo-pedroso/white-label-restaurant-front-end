@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -23,13 +24,65 @@ import {
   PhoneField,
   StyledTab,
 } from "@/components/LoginUtils";
+interface ImageComponentProps {
+  bucketName: string;
+  objectKey: string;
+}
+const ImageComponent: React.FC<ImageComponentProps> = ({
+  bucketName,
+  objectKey,
+}) => {
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const REGION = "us-east-1"; // e.g., "us-west-2"
+    const s3Client = new S3Client({
+      region: REGION,
+      credentials: {
+        accessKeyId: import.meta.env.VITE_REACT_APP_ACCESS_TOKEN || "",
+        secretAccessKey: import.meta.env.VITE_REACT_APP_SECRET_TOKEN || "",
+      },
+    });
+
+    const fetchImageUrl = async () => {
+      const command = new GetObjectCommand({
+        Bucket: bucketName,
+        Key: objectKey,
+      });
+
+      try {
+        const signedUrl = await getSignedUrl(s3Client, command, {
+          expiresIn: 3600,
+        });
+        setImageUrl(signedUrl);
+      } catch (error) {
+        console.error("Error fetching signed URL", error);
+      }
+    };
+
+    fetchImageUrl();
+  }, [bucketName, objectKey]);
+
+  return imageUrl ? (
+    <img
+      src={imageUrl}
+      alt={"logo"}
+      width={104}
+      loading="lazy"
+      style={{ margin: "auto" }}
+    />
+  ) : (
+    <div>Loading...</div>
+  );
+};
 export default function Login() {
   const pageProps = {
     "primary-color": "#675997",
     "secondary-color": "#F0F0F0",
     "logo-path": "src/assets/images/logo.png",
+    "restaurant-name": "restaurant-name",
   };
-  const [logoPath] = useState(pageProps["logo-path"]);
+
   const [resolveMenu, setResolveMenu] = useState("1");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,12 +103,9 @@ export default function Login() {
           percentage="25vh"
           customClass="sign-up-menu"
         >
-          <img
-            src={`${logoPath}?w=164&h=164&fit=crop&auto=format`}
-            alt={"logo"}
-            width={104}
-            loading="lazy"
-            style={{ margin: "auto" }}
+          <ImageComponent
+            bucketName={pageProps["restaurant-name"]}
+            objectKey="images/logo/logo.png"
           />
 
           <Box sx={{ marginTop: "auto" }}>
