@@ -1,0 +1,4 @@
+.password-button:focus,
+.password-button:focus-visible {
+  outline: none;
+}
