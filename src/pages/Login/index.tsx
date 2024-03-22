@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
@@ -24,6 +25,8 @@ import {
   PhoneField,
   StyledTab,
 } from "@/components/LoginUtils";
+
+import { useNavigate } from "react-router-dom";
 interface ImageComponentProps {
   bucketName: string;
   objectKey: string;
@@ -84,7 +87,7 @@ export default function Login() {
   };
 
   const [resolveMenu, setResolveMenu] = useState("1");
-
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -93,8 +96,53 @@ export default function Login() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    console.log(data);
   };
+  const handleSignUp = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const signUpInfo = {
+      full_name: data.get("full_name"),
+      email: data.get("email"),
+      phone_number: data.get("phone_number"),
+      password: data.get("password"),
+      confirm_password: data.get("confirm-password"),
+    };
+    // eslint-disable-next-line no-console
+    console.log({
+      full_name: data.get("full_name"),
+      email: data.get("email"),
+      phone_number: data.get("phone_number"),
+      password: data.get("password"),
+      confirm_password: data.get("confirm_password"),
+    });
 
+    // const attributeList = [];
+    // attributeList.push(
+    //   new CognitoUserAttribute({
+    //     Name: "email",
+    //     Value: String(signUpInfo.email) || "",
+    //   })
+    // );
+    // const username = String(signUpInfo.email) || "";
+    // userpool.signUp(
+    //   username,
+    //   String(signUpInfo.password) || "",
+    //   attributeList,
+    //   [],
+    //   (err, data) => {
+    //     if (err) {
+    //       console.log(err);
+    //       alert("Couldn't sign up");
+    //     } else {
+    //       console.log(data);
+    //       alert("User Added Successfully");
+    //       navigate("/logado");
+    //     }
+    //   }
+    // );
+    console.log(data);
+  };
   return (
     <LoginContainer backgroundColor={pageProps["secondary-color"]}>
       <TabContext value={resolveMenu}>
@@ -111,7 +159,7 @@ export default function Login() {
           <Box sx={{ marginTop: "auto" }}>
             <TabList
               onChange={(_, newValue) => setResolveMenu(newValue)}
-              aria-label="lab API tabs example"
+              aria-label="tab"
               TabIndicatorProps={{
                 style: {
                   backgroundColor: "#D97D54",
@@ -224,8 +272,7 @@ export default function Login() {
               >
                 <Box
                   component="form"
-                  onSubmit={handleSubmit}
-                  noValidate
+                  onSubmit={handleSignUp}
                   sx={{
                     mt: 1,
                   }}
@@ -251,7 +298,12 @@ export default function Login() {
                     name="email"
                     autoComplete="email"
                   />
-                  <PhoneField />
+                  <PhoneField
+                    id="phone_number"
+                    name="phone_number"
+                    label="Celular"
+                    required
+                  />
                   <PasswordField
                     id="password"
                     name="password"
@@ -259,8 +311,8 @@ export default function Login() {
                     required
                   />
                   <PasswordField
-                    id="confirm-password"
-                    name="confirm-password"
+                    id="confirm_password"
+                    name="confirm_password"
                     label="Confirme a senha"
                     required
                   />

@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-whitelabelrestaurant-dev-232415-authRole",
+      "UnauthRoleArn": "arn:aws:iam::381491992413:role/amplify-whitelabelrestaurant-dev-232415-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::381491992413:role/amplify-whitelabelrestaurant-dev-232415-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-whitelabelrestaurant-dev-232415-deployment",
+      "UnauthRoleName": "amplify-whitelabelrestaurant-dev-232415-unauthRole",
+      "StackName": "amplify-whitelabelrestaurant-dev-232415",
+      "StackId": "arn:aws:cloudformation:us-east-1:381491992413:stack/amplify-whitelabelrestaurant-dev-232415/65830aa0-e7f3-11ee-825f-0affcf5561ef",
+      "AmplifyAppId": "dlu4d647tolgf"
+    },
+    "categories": {
+      "auth": {
+        "whitelabelrestaurant3181cb27": {
+          "userPoolId": "us-east-1_SrnKXmZ6z",
+          "userPoolName": "restaurant-name",
+          "webClientId": "5k0ngb18jf038k13sth0ans32d",
+          "nativeClientId": "2a958jhfd66tng3uopfve2v7h"
+        }
+      }
+    }
+  }
+}

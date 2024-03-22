@@ -1,0 +1,45 @@
+{
+  "auth": {
+    "whitelabelrestaurant3181cb27": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_whitelabelrestaurant3181cb27_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "whitelabelrestaurant3181cb27"
+        }
+      ]
+    },
+    "AMPLIFY_auth_whitelabelrestaurant3181cb27_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "whitelabelrestaurant3181cb27"
+        }
+      ]
+    },
+    "AMPLIFY_auth_whitelabelrestaurant3181cb27_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "whitelabelrestaurant3181cb27"
+        }
+      ]
+    },
+    "AMPLIFY_auth_whitelabelrestaurant3181cb27_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "whitelabelrestaurant3181cb27"
+        }
+      ]
+    }
+  }
+}

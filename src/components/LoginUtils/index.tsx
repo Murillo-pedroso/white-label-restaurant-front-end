@@ -25,6 +25,13 @@ interface PasswordFieldProps {
   id: string;
   required?: boolean;
 }
+
+interface PhoneFieldProps {
+  label: string;
+  name: string;
+  id: string;
+  required?: boolean;
+}
 export const PasswordField: React.FC<PasswordFieldProps> = ({
   label,
   name,
@@ -64,7 +71,12 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
     />
   );
 };
-export const PhoneField = () => {
+export const PhoneField: React.FC<PhoneFieldProps> = ({
+  label,
+  name,
+  id,
+  required,
+}) => {
   const [value, setValue] = React.useState("+55");
 
   const handleChange = (newValue: string) => {
@@ -75,11 +87,11 @@ export const PhoneField = () => {
     <MuiTelInput
       size="small"
       margin="normal"
-      required
+      required={required}
       fullWidth
-      id="phone"
-      label="Celular"
-      name="phone"
+      id={id}
+      label={label}
+      name={name}
       autoComplete="phone"
       value={value}
       onChange={handleChange}
